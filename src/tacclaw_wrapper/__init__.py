@@ -8,6 +8,7 @@ from .gripper import (
     MotionAuthorizationError,
     TacClawGripper,
 )
+from .worker import TacClawWorker, TacClawWorkerError, TacClawWorkerState
 
 __all__ = [
     "CameraConfig",
@@ -18,4 +19,7 @@ __all__ = [
     "MotionAuthorizationError",
     "TacClawGripper",
     "TacClawCamera",
+    "TacClawWorker",
+    "TacClawWorkerError",
+    "TacClawWorkerState",
 ]

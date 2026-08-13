@@ -10,6 +10,8 @@ not import vendor modules directly.
   bounded position commands, and deterministic shutdown.
 - `src/tacclaw_wrapper/camera.py`: read-only capabilities and single-frame
   camera lifecycle.
+- `src/tacclaw_wrapper/worker.py`: explicitly authorized, rate-limited
+  asynchronous position execution through the public gripper API.
 - `config/dm_tacclaw.env.example`: non-secret endpoint template.
 - `scripts/`: vendor extraction and Python 3.10 environment setup.
 - `docs/vendor/`: the product manual migrated from the retired integration
@@ -76,3 +78,5 @@ tacclaw-gripper-smoke --side left \
 ```
 
 This repository does not authorize Quest-driven online gripper control.
+DataMaster trigger-to-position mapping is also outside this hardware wrapper;
+it is implemented by `teleop_retarget`.
