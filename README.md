@@ -18,14 +18,6 @@ not import vendor modules directly.
 - `scripts/`: vendor extraction and Python 3.10 environment setup.
 - `docs/vendor/`: the product manual migrated from the retired integration
   repository.
-- `scripts/backpack_data.sh`: read-only status, listing, and episode download
-  from a Daimon dual-claw acquisition backpack.
-- `scripts/export_backpack_data.sh`: checksum-verified episode export with an
-  explicit, safety-gated option to remove the verified backpack copy.
-- `scripts/validate_backpack_episode.py`: standalone metadata and required-file
-  validation for downloaded episodes.
-- `docs/operations/backpack_data.md`: host networking, episode layout, and safe
-  export instructions.
 
 Tactile SDK installation is supported by the setup script, but no stable
 tactile API was present in the source repository. It remains explicitly
@@ -90,20 +82,3 @@ tacclaw-gripper-smoke --side left \
 This repository does not authorize Quest-driven online gripper control.
 DataMaster trigger-to-position mapping is also outside this hardware wrapper;
 it is implemented by `teleop_retarget`.
-
-## Acquisition backpack utilities
-
-The backpack utilities are operational tools for data produced by a Daimon
-dual-claw backpack. They do not implement the TacClaw motion API. Start with
-read-only inspection:
-
-```bash
-./scripts/backpack_data.sh status
-./scripts/backpack_data.sh list
-./scripts/backpack_data.sh pull latest
-```
-
-The export tool can remove a remote episode only after metadata validation and
-matching per-file SHA-256 checks. Use `--keep-remote` for a non-destructive
-export. See [`docs/operations/backpack_data.md`](docs/operations/backpack_data.md)
-for the complete workflow.

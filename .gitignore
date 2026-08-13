@@ -9,7 +9,4 @@ __pycache__/
 build/
 dist/
 /vendor/
-/local_data/
-/backpack_data/
-/exported_data/
 config/dm_tacclaw.env
