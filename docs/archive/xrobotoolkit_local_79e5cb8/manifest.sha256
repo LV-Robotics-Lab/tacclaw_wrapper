@@ -1,0 +1,3 @@
+2b41c9544bb80405936c3c6b82fe9e01557a5af4de6eaf2032234a3a0396805e  snapshot/scripts/hardware/test_dm_tacclaw.py
+c118eb5d8da274a741b0ebfbd684de724a236b8e457f4867f203c20a50b5d80a  snapshot/tests/test_dm_tacclaw.py
+fbcb3bdbf6e135ed60ddb02b10b95ebdb501cd217dbaa351c45c455e36633f51  snapshot/xrobotoolkit_teleop/hardware/interface/dm_tacclaw.py
