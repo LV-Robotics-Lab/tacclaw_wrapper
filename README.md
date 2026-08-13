@@ -12,6 +12,8 @@ not import vendor modules directly.
   camera lifecycle.
 - `src/tacclaw_wrapper/worker.py`: explicitly authorized, rate-limited
   asynchronous position execution through the public gripper API.
+- `src/tacclaw_wrapper/data/tacclaw_estimated_collision.yaml`: an explicitly unvalidated sphere
+  fit for planning experiments; it is not measured/CAD-confirmed geometry.
 - `config/dm_tacclaw.env.example`: non-secret endpoint template.
 - `scripts/`: vendor extraction and Python 3.10 environment setup.
 - `docs/vendor/`: the product manual migrated from the retired integration

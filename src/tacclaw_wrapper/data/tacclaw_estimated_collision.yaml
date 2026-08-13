@@ -1,0 +1,62 @@
+collision_model:
+  frame: tcp_link
+  geometry_source: estimated_from_TacClaw_manual_profile_V1.0_2026-08-12
+  measured_or_cad_validated: false
+  assumptions:
+    - mounting_plate_center_coincident_with_nero_flange_center
+    - gripper_long_axis_along_link7_positive_z
+    - tcp_at_closed_fingertip_midpoint_194.48_mm_from_flange
+    - front_width_and_side_depth_profiles_taken_from_manual_figure_1_1
+  # Centres are metres relative to TCP. This is a fitted sphere profile, not a
+  # 177.01 mm solid cuboid: figure 1.1 shows that the maximum depth comes only
+  # from the low camera/side protrusions. Treating that full depth as a cuboid
+  # falsely intersects NERO link5 in the physical J4=90-degree park posture.
+  collision_spheres:
+    # 72.8 x 40.8 x 4 mm mounting interface plus adjoining base volume. These
+    # remain tangent to the flange plane, but use 9 mm rather than 10 mm fitted
+    # spheres. The live straight-arm pose proved that the 10 mm fit protruded
+    # 0.15 mm into link5 even though the installed flange/plate did not touch.
+    - {center: [-0.026, -0.010, -0.18548], radius: 0.009}
+    - {center: [-0.026,  0.010, -0.18548], radius: 0.009}
+    - {center: [ 0.026, -0.010, -0.18548], radius: 0.009}
+    - {center: [ 0.026,  0.010, -0.18548], radius: 0.009}
+
+    # Main 77 mm-wide body, fitted to the central side-view housing.
+    - {center: [-0.020, -0.030, -0.17648], radius: 0.018}
+    - {center: [-0.020,  0.000, -0.17648], radius: 0.018}
+    - {center: [-0.020,  0.030, -0.17648], radius: 0.018}
+    - {center: [ 0.020, -0.030, -0.17648], radius: 0.018}
+    - {center: [ 0.020,  0.000, -0.17648], radius: 0.018}
+    - {center: [ 0.020,  0.030, -0.17648], radius: 0.018}
+    - {center: [-0.020, -0.030, -0.14948], radius: 0.018}
+    - {center: [-0.020,  0.000, -0.14948], radius: 0.018}
+    - {center: [-0.020,  0.030, -0.14948], radius: 0.018}
+    - {center: [ 0.020, -0.030, -0.14948], radius: 0.018}
+    - {center: [ 0.020,  0.000, -0.14948], radius: 0.018}
+    - {center: [ 0.020,  0.030, -0.14948], radius: 0.018}
+    - {center: [-0.020, -0.030, -0.12248], radius: 0.018}
+    - {center: [-0.020,  0.000, -0.12248], radius: 0.018}
+    - {center: [-0.020,  0.030, -0.12248], radius: 0.018}
+    - {center: [ 0.020, -0.030, -0.12248], radius: 0.018}
+    - {center: [ 0.020,  0.000, -0.12248], radius: 0.018}
+    - {center: [ 0.020,  0.030, -0.12248], radius: 0.018}
+
+    # Camera and rear side protrusions that create the 177.01 mm max depth.
+    - {center: [0.000, -0.072, -0.15948], radius: 0.017}
+    - {center: [0.000,  0.072, -0.15948], radius: 0.017}
+    - {center: [0.000, -0.062, -0.13648], radius: 0.017}
+    - {center: [0.000,  0.062, -0.13648], radius: 0.017}
+
+    # Two 24 mm-deep tapered fingers, including the 124.45 mm open width.
+    - {center: [-0.025, 0.000, -0.10448], radius: 0.013}
+    - {center: [ 0.025, 0.000, -0.10448], radius: 0.013}
+    - {center: [-0.030, 0.000, -0.08448], radius: 0.013}
+    - {center: [ 0.030, 0.000, -0.08448], radius: 0.013}
+    - {center: [-0.036, 0.000, -0.06448], radius: 0.013}
+    - {center: [ 0.036, 0.000, -0.06448], radius: 0.013}
+    - {center: [-0.042, 0.000, -0.04448], radius: 0.013}
+    - {center: [ 0.042, 0.000, -0.04448], radius: 0.013}
+    - {center: [-0.047, 0.000, -0.02448], radius: 0.013}
+    - {center: [ 0.047, 0.000, -0.02448], radius: 0.013}
+    - {center: [-0.050, 0.000, -0.00648], radius: 0.013}
+    - {center: [ 0.050, 0.000, -0.00648], radius: 0.013}
