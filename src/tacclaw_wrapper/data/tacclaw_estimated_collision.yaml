@@ -1,10 +1,13 @@
 collision_model:
   frame: tcp_link
-  geometry_source: estimated_from_TacClaw_manual_profile_V1.0_2026-08-12
+  geometry_source: estimated_TacClaw_manual_V1.0_plus_NERO_official_gripper_flange_xacro_plus_installed_photo_roll90_2026-08-13
   measured_or_cad_validated: false
   assumptions:
-    - mounting_plate_center_coincident_with_nero_flange_center
-    - gripper_long_axis_along_link7_positive_z
+    - mounting_plate_center_coincident_with_official_nero_gripper_flange_frame
+    - official_link7_to_gripper_flange_xyz_mm_31_0_minus23.5
+    - official_link7_to_gripper_flange_rpy_deg_minus90_0_minus90
+    - installed_photo_and_hardware_zero_show_long_axis_along_link7_positive_x
+    - tacclaw_frame_rotated_plus90deg_about_official_flange_positive_z_to_match_installed_finger_plane
     - tcp_at_closed_fingertip_midpoint_194.48_mm_from_flange
     - front_width_and_side_depth_profiles_taken_from_manual_figure_1_1
   # Centres are metres relative to TCP. This is a fitted sphere profile, not a

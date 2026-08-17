@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Any, Callable, Optional
 
 from .config import GripperConfig
-from .vendor import load_gripper_class
+from .vendor import create_gripper_driver
 
 
 class MotionAuthorizationError(RuntimeError):
@@ -52,12 +52,21 @@ class TacClawGripper:
         vendor_root: Path,
         driver_factory: Optional[Callable[..., Any]] = None,
     ) -> "TacClawGripper":
-        factory = driver_factory or load_gripper_class(vendor_root)
-        driver = factory(
-            server_address=config.server_address,
-            interface=config.interface,
-            bitrate=config.bitrate,
-        )
+        if driver_factory is None:
+            driver = create_gripper_driver(
+                vendor_root,
+                server_address=config.server_address,
+                interface=config.interface,
+                bitrate=config.bitrate,
+            )
+        else:
+            # Injected factories retain the legacy superset signature so tests
+            # can exercise the wrapper without importing a proprietary SDK.
+            driver = driver_factory(
+                server_address=config.server_address,
+                interface=config.interface,
+                bitrate=config.bitrate,
+            )
         return cls(config, driver)
 
     @property

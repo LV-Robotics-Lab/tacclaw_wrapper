@@ -23,6 +23,13 @@ Tactile SDK installation is supported by the setup script, but no stable
 tactile API was present in the source repository. It remains explicitly
 unimplemented rather than being guessed from vendor examples.
 
+The gripper import boundary accepts both vendor layouts retained by this
+workspace.  It prefers the current product-manual API,
+`dm_lingkong_grip_sdk.LingkongGrip(server_address=...)`, and falls back to the
+archived `gripper.Gripper(server_address, interface, bitrate)` client.  The
+constructor difference is isolated inside `vendor.py`; callers always use
+`TacClawGripper`.
+
 ## Offline verification
 
 ```bash
