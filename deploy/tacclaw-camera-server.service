@@ -1,0 +1,28 @@
+[Unit]
+Description=DM TacClaw fisheye camera proxy
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=cftc
+Group=cftc
+SupplementaryGroups=video
+WorkingDirectory=/app/tacclaw-camera-server
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=PYTHONPATH=/app/tacclaw-camera-server/source/src
+ExecStart=/app/tacclaw-camera-server/venv/bin/python -m tacclaw_wrapper.fish_camera_proxy.server --bind 0.0.0.0:50088 --device /dev/video4 --mode HEVC:1280x720@60 --mode HEVC:1920x1080@60 --mode MJPG:1280x720@60 --mode MJPG:1920x1080@60
+Restart=on-failure
+RestartSec=2
+TimeoutStopSec=6
+KillMode=mixed
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=full
+DevicePolicy=closed
+DeviceAllow=/dev/video4 rw
+
+[Install]
+WantedBy=multi-user.target

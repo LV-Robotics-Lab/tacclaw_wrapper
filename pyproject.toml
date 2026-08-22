@@ -9,9 +9,11 @@ dependencies = ["PyYAML>=6"]
 [project.scripts]
 tacclaw-gripper-smoke = "tacclaw_wrapper.cli:main"
 tacclaw-camera-smoke = "tacclaw_wrapper.camera_cli:main"
+tacclaw-camera-server = "tacclaw_wrapper.fish_camera_proxy.server:main"
 
 [project.optional-dependencies]
-dev = ["pytest>=7", "ruff>=0.5"]
+dev = ["grpcio>=1.48", "protobuf>=3.12", "pytest>=7", "ruff>=0.5"]
+camera-server = ["grpcio>=1.48", "protobuf>=3.12"]
 
 [tool.setuptools.package-data]
 "tacclaw_wrapper.data" = ["*.yaml"]

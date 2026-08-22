@@ -10,6 +10,10 @@ not import vendor modules directly.
   bounded position commands, and deterministic shutdown.
 - `src/tacclaw_wrapper/camera.py`: read-only capabilities and single-frame
   camera lifecycle.
+- `src/tacclaw_wrapper/fish_camera_proxy/`: a self-hosted implementation of
+  DM's documented `fish_camera.grpc_test.CameraProxy` protocol. HEVC is copied
+  from V4L2 into MPEG-TS/UDP; MJPG is copied into the vendor `FCP1` UDP frame
+  format. Neither path re-encodes video.
 - `src/tacclaw_wrapper/worker.py`: explicitly authorized, rate-limited
   asynchronous position execution through the public gripper API.
 - `src/tacclaw_wrapper/data/tacclaw_estimated_collision.yaml`: an explicitly unvalidated sphere
@@ -77,6 +81,43 @@ Read-only camera access is explicit:
 tacclaw-camera-smoke --side left --list-capabilities
 tacclaw-camera-smoke --side left --read-once
 ```
+
+## Fisheye camera board service
+
+The vendor client archive documents a camera service on TCP port `50088`, but
+the inspected TacClaw board image does not contain that service. This wrapper
+includes a compatible replacement. Deploy it to both boards from the host:
+
+```bash
+bash scripts/deploy_fish_camera_servers.sh
+```
+
+The deployment installs `tacclaw-camera-server.service` under systemd and uses
+the native `/dev/video4` HEVC/MJPG modes. The server permits only one active
+stream per board and, by default, sends UDP only to the IP that opened the gRPC
+connection. Because the boards have no Internet route, deployment uses an
+ARM64 `grpcio` wheel staged in `vendor/offline-wheels/`; it does not download
+packages on the boards.
+
+Camera intrinsics are deliberately not inferred. `GetIntrinsics` returns
+`FAILED_PRECONDITION` unless the server is started with `--calibration` and a
+validated JSON object containing:
+
+```json
+{
+  "device": "/dev/video4",
+  "camera_model": "vendor-model-name",
+  "distortion_model": "vendor-distortion-model",
+  "intrinsics": [0.0, 0.0, 0.0, 0.0],
+  "camera_matrix": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0],
+  "distortion_coeffs": [],
+  "resolution": [1280, 720],
+  "sn": "optional-camera-serial"
+}
+```
+
+The zeros above describe the required shape only and are not usable
+calibration values.
 
 Gripper initialization or motion requires both execution flags and a
 clearance confirmation:
